@@ -15,7 +15,8 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .badge { font-size: 14px; padding: 4px 10px; border-radius: 8px; font-weight: 800; margin-right: 6px; display: inline-block; margin-bottom: 6px; }
         .badge-res { background: #FADBD8; color: var(--m-red); }
-        .nav-map-btn { display: inline-flex; align-items: center; background-color: #F8F9FA; color: #333; padding: 10px 18px; border-radius: 14px; font-size: 15px; font-weight: 700; margin-top: 14px; border: 1px solid #EEE; }
+        .nav-map-btn { display: inline-flex; align-items: center; background-color: #F8F9FA; color: #333; padding: 10px 18px; border-radius: 14px; font-size: 15px; font-weight: 700; margin-top: 14px; border: 1px solid #EEE; text-decoration: none; }
+        .ticket-btn { display: flex; align-items: center; padding: 18px; background: #fff; border: 1px solid #eee; border-radius: 18px; margin-bottom: 12px; transition: all 0.2s; text-decoration: none; }
         .bottom-nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border-top: 1px solid #E5E5E5; padding-bottom: env(safe-area-inset-bottom); }
         .ledger-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #F0F0F0; }
         .ledger-input { border: none; border-bottom: 2px solid #EEE; background: transparent; width: 100%; padding: 12px 0; font-size: 18px; outline: none; }
@@ -39,13 +40,13 @@
 
     <footer class="bottom-nav fixed bottom-0 left-0 right-0 h-24 flex justify-around items-center z-50 px-8">
         <button onclick="switchMode('itinerary')" id="mode-itinerary" class="flex flex-col items-center gap-1 text-stone-800">
-            <span class="text-3xl">🗓️</span><span class="text-[11px] font-black uppercase">Schedule</span>
+            <span class="text-3xl">🗓️</span><span class="text-[11px] font-black uppercase tracking-tighter">Schedule</span>
         </button>
         <button onclick="switchMode('ledger')" id="mode-ledger" class="flex flex-col items-center gap-1 text-stone-300">
-            <span class="text-3xl">💰</span><span class="text-[11px] font-black uppercase">Ledger</span>
+            <span class="text-3xl">💰</span><span class="text-[11px] font-black uppercase tracking-tighter">Ledger</span>
         </button>
         <button onclick="switchMode('master')" id="mode-master" class="flex flex-col items-center gap-1 text-stone-300">
-            <span class="text-3xl">🧳</span><span class="text-[11px] font-black uppercase">Vault</span>
+            <span class="text-3xl">🧳</span><span class="text-[11px] font-black uppercase tracking-tighter">Vault</span>
         </button>
     </footer>
 
@@ -77,90 +78,111 @@
 
         const tripData = [
             { date: "1/24", weekday: "六", city: "輕井澤", weather: "❄️ -6° / -1°", rain: "10%", items: [
-                { time: "06:00", title: "機場接送 🚗", desc: "格上租車前往桃園機場", loc: "桃園機場" },
-                { time: "09:30", title: "華航 CI0100 ✈️", desc: "成田 | 座位 <span class='badge badge-res'>47DEFG</span>", loc: "桃園機場" },
-                { time: "13:30", title: "抵達成田機場", desc: "第二航廈通關", loc: "成田國際機場第2航廈" },
+                { time: "06:00", title: "格上機場接送", desc: "前往桃園國際機場", loc: "桃園國際機場" },
+                { time: "09:30", title: "華航 CI0100 ✈️", desc: "機位 <span class='badge badge-res'>47DEFG</span> (經濟艙)", loc: "桃園機場" },
+                { time: "13:30", title: "抵達成田機場", desc: "抵達第二航廈通關", loc: "成田機場第2航廈" },
                 { time: "15:00", title: "Skyliner 🚅", desc: "前往京成上野 | <span class='badge badge-res'>刷臉過閘機</span>", loc: "京成上野站" },
-                { time: "16:38", title: "新幹線 Hakutaka 🚅", desc: "座號 <span class='badge badge-res'>9號1番ABC/2番C</span>", loc: "上野站" },
-                { time: "17:35", title: "抵達輕井澤站", desc: "準備飯店接駁" },
+                { time: "16:38", title: "新幹線 Hakutaka 571 🚅", desc: "座號 <span class='badge badge-res'>9號1番ABC / 2番C席</span>", loc: "上野站" },
+                { time: "17:35", title: "抵達輕井澤站", desc: "準備搭乘飯店接駁", loc: "輕井澤車站" },
                 { time: "18:00", title: "入住 Indigo 🏨", desc: "標準雙床房(含早)", loc: "Hotel Indigo Karuizawa" }
             ]},
             { date: "1/25", weekday: "日", city: "輕井澤", weather: "❄️ -8° / 1°", rain: "5%", items: [
-                { time: "07:00", title: "飯店早餐 🍳", desc: "享用 Indigo 早餐" },
-                { time: "08:30", title: "雪場準備 🎿", desc: "東館雪具租賃處集合著裝", loc: "輕井澤王子滑雪場" },
-                { time: "09:00", title: "滑雪課程 🎿", desc: "探雪者學校課程", loc: "輕井澤王子滑雪場" },
+                { time: "07:00", title: "飯店早餐 🍳", desc: "享用飯店早餐" },
+                { time: "08:30", title: "雪場準備 🎿", desc: "抵達東館雪具租賃處集合著裝", loc: "輕井澤王子滑雪場" },
+                { time: "09:00", title: "滑雪課程 🎿", desc: "參加探雪者學校課程", loc: "輕井澤王子大飯店滑雪場" },
                 { time: "12:00", title: "雪場午餐 🍱", desc: "Snow House 2F 用餐或外帶", loc: "輕井澤滑雪場" },
-                { time: "14:00", title: "Hotel Indigo 退房", desc: "Check-out" },
-                { time: "15:00", title: "入住西館小木屋 🏡", desc: "West D 小木屋", loc: "Karuizawa Prince Hotel West" },
-                { time: "16:00", title: "舊輕井澤銀座通", desc: "散策與晚餐。接駁搭循環巴士", loc: "舊輕井澤銀座通" }
+                { time: "14:00", title: "Indigo 退房", desc: "飯店退房 Check-out" },
+                { time: "15:00", title: "入住西館小木屋 🏡", desc: "West D 小木屋 (不含早)", loc: "Karuizawa Prince Hotel West" },
+                { time: "16:00", title: "舊輕井澤銀座通", desc: "散策與吃晚餐。可搭棕線/綠線接駁", loc: "舊輕井澤銀座通" }
             ]},
-            { date: "1/26", weekday: "一", city: "輕井澤", weather: "☁️ -5° / 2°", rain: "0%", items: [
-                { time: "07:30", title: "自備早餐 🥯", desc: "小木屋早晨" },
-                { time: "08:30", title: "前往滑雪場", desc: "搭乘接駁車" },
-                { time: "09:00", title: "滑雪課程 Day 2 🎿", desc: "進階滑雪練習" },
-                { time: "13:00", title: "王子 Outlet 🛍️", desc: "領優惠券。逛樂高、超市等", loc: "輕井澤王子購物廣場" },
+            { date: "1/26", weekday: "一", city: "輕井澤", weather: "❄️ -5° / 2°", rain: "0%", items: [
+                { time: "07:30", title: "自備早餐 🥯", desc: "木屋晨餐" },
+                { time: "08:30", title: "前往滑雪場", desc: "自行搭乘接駁車" },
+                { time: "09:00", title: "滑雪課程 Day 2 🎿", desc: "繼續磨練雪技" },
+                { time: "12:00", title: "課程結束", desc: "滑雪結束休息" },
+                { time: "13:00", title: "王子 Outlet 🛍️", desc: "領取優惠券。逛樂高、運動用品、Ralph Lauren、Gap、超市", loc: "輕井澤王子購物廣場" },
                 { time: "17:00", title: "Outlet 晚餐 🍱", desc: "營業至 19:00", loc: "輕井澤王子購物廣場" }
             ]},
             { date: "1/27", weekday: "二", city: "東京", weather: "☁️ 2° / 9°", rain: "20%", items: [
-                { time: "08:30", title: "飯店退房 🏨", desc: "寄存行李" },
-                { time: "09:00", title: "Snowman Park ⛄", desc: "門票 ¥1400 / 雪盆 ¥500", loc: "輕井澤滑雪場" },
-                { time: "13:57", title: "新幹線 Asama 616 🚅", desc: "座號 <span class='badge badge-res'>9號16/17番DE</span>", loc: "輕井澤站" },
+                { time: "08:30", title: "退房與寄行李 🧳", desc: "王子西館退房" },
+                { time: "09:00", title: "Snowman Park ⛄", desc: "玩雪 / 門票¥1400 / 雪盆¥500", loc: "輕井澤滑雪場" },
+                { time: "13:57", title: "新幹線 Asama 616 🚅", desc: "座號 <span class='badge badge-res'>9號16/17番DE席</span>", loc: "輕井澤車站" },
+                { time: "15:12", title: "抵達東京車站", desc: "新幹線抵達", loc: "東京車站" },
                 { time: "15:30", title: "入住唐草飯店 🏨", desc: "東京八重洲 (含早)", loc: "karaksa hotel colors Tokyo Yaesu" },
-                { time: "16:00", title: "寶可夢中心 DX 🐉", desc: "日本橋高島屋 5F", loc: "寶可夢中心東京日本橋店 DX" },
-                { time: "17:30", title: "福みみ 銀座 6 🍢", desc: "已預約晚餐", loc: "串串燒 BISTRO 福みみ 銀座 6" },
-                { time: "19:30", title: "唐吉訶德 🛒", desc: "銀座店 24H 營業", loc: "唐吉訶德 銀座本館" }
+                { time: "16:00", title: "寶可夢中心 DX 🐉", desc: "日本橋高島屋東館 5F", loc: "寶可夢中心東京日本橋店 DX" },
+                { time: "17:30", title: "福みみ 銀座 6 🍢", desc: "已預約餐酒館", loc: "串串燒 BISTRO 福みみ 銀座6" },
+                { time: "19:30", title: "唐吉訶德 🛒", desc: "銀座店 24小時營業", loc: "唐吉訶德 銀座本館" }
             ]},
             { date: "1/28", weekday: "三", city: "東京", weather: "☀️ 4° / 11°", rain: "0%", items: [
-                { time: "08:00", title: "飯店早餐 🥞", desc: "唐草早餐" },
-                { time: "09:30", title: "鐵塔攝影 🗼", desc: "赤羽橋站及芝公園", loc: "芝公園" },
-                { time: "10:30", title: "明治神宮 ⛩️", desc: "參拜神宮", loc: "明治神宮" },
-                { time: "12:00", title: "澀谷午餐 🍛", desc: "澀谷 Parco 土鍋飯", loc: "澀谷 PARCO" },
+                { time: "08:00", title: "享用飯店早餐 🥞", desc: "飯店晨餐" },
+                { time: "09:00", title: "地下鐵移動 🚇", desc: "寶町 ➔ 大門 A6 出口", loc: "寶町站" },
+                { time: "09:30", title: "鐵塔攝影點 🗼", desc: "赤羽橋站及芝公園拍照位", loc: "芝公園" },
+                { time: "10:30", title: "明治神宮參拜 ⛩️", desc: "神宮散策", loc: "明治神宮" },
+                { time: "12:00", title: "澀谷午餐 🍛", desc: "澀谷 Parco 土鍋飯或一蘭原宿", loc: "澀谷 PARCO" },
+                { time: "14:00", title: "澀谷購物 🛍️", desc: "寶可夢中心 / Montbell", loc: "澀谷 PARCO" },
                 { time: "15:00", title: "藍瓶咖啡 ☕", desc: "澀谷公園店", loc: "Blue Bottle Coffee Shibuya" },
-                { time: "17:00", title: "一番街關東煮 🍢", desc: "關東煮晚餐", loc: "東京車站一番街" }
+                { time: "16:30", title: "東京一番街 🐉", desc: "寶可夢東京車站店", loc: "東京車站一番街" },
+                { time: "17:00", title: "關東煮晚餐 🍢", desc: "本家あべや或お電屋たけし", loc: "東京車站一番街" }
             ]},
             { date: "1/29", weekday: "四", city: "東京", weather: "☁️ 3° / 10°", rain: "10%", items: [
-                { time: "09:00", title: "teamLab Planets ✨", desc: "已預約 / 需脫鞋襪", loc: "teamLab Planets TOKYO" },
-                { time: "12:30", title: "台場 Bills 🥞", desc: "已預約午餐", loc: "Bills Odaiba" },
-                { time: "14:00", title: "樂高探索中心 🧱", desc: "已預約參觀", loc: "LEGOLAND Tokyo" },
-                { time: "18:00", title: "與瑪姬姐餐敘 🍷", desc: "聚餐時間" }
+                { time: "07:30", title: "享用飯店早餐 🍳", desc: "悠閒早餐" },
+                { time: "08:30", title: "計程車前往豐洲 🚕", desc: "飯店協助叫車" },
+                { time: "09:00", title: "teamLab Planets ✨", desc: "已預約 (需脫鞋襪)", loc: "teamLab Planets TOKYO" },
+                { time: "12:30", title: "台場 Bills 午餐 🥞", desc: "已預約 / 推薦鬆餅", loc: "Bills Odaiba" },
+                { time: "14:00", title: "樂高探索中心 🧱", desc: "已預約參觀", loc: "LEGOLAND Discovery Center Tokyo" },
+                { time: "18:00", title: "與瑪姬姐餐敘 🍷", desc: "聚餐交流" }
             ]},
             { date: "1/30", weekday: "五", city: "東京", weather: "☀️ 4° / 12°", rain: "0%", items: [
-                { time: "09:00", title: "雷門參拜 ⛩️", desc: "淺草寺參拜", loc: "淺草雷門" },
+                { time: "08:00", title: "享用飯店早餐 🥯", desc: "晨餐時光" },
+                { time: "09:00", title: "淺草雷門參拜 ⛩️", desc: "Metro 銀座線前往", loc: "淺草雷門" },
                 { time: "11:00", title: "晴空塔登塔 🗼", desc: "已預約天望迴廊", loc: "東京晴空塔" },
                 { time: "12:00", title: "敘敘苑燒肉 🥩", desc: "30F 景觀預約席", loc: "敘敘苑 晴空塔店" },
-                { time: "15:00", title: "科學博物館 🦖", desc: "已預約參觀", loc: "國立科學博物館" },
-                { time: "18:00", title: "ねぎし 牛舌 👅", desc: "上野站前店", loc: "Negishi Ueno" }
+                { time: "14:00", title: "晴空塔寶可夢 🐉", desc: "Skytree Town 店", loc: "東京晴空塔" },
+                { time: "15:00", title: "科學博物館 🦖", desc: "已預約 / 計程車前往", loc: "國立科學博物館" },
+                { time: "18:00", title: "ねぎし 牛舌套餐 👅", desc: "上野站前店", loc: "Negishi Ueno" }
             ]},
             { date: "1/31", weekday: "六", city: "東京", weather: "☁️ 5° / 10°", rain: "30%", items: [
-                { time: "09:30", title: "池袋水族館 🐟", desc: "已預約 / 看海獅", loc: "池袋太陽城水族館" },
-                { time: "11:30", title: "寶可夢中心 🐉", desc: "池袋 Mega Tokyo 店", loc: "Pokemon Center Mega Tokyo" },
-                { time: "13:30", title: "和幸炸豬排 🍛", desc: "太陽城店", loc: "Tonkatsu Wako" },
-                { time: "18:30", title: "塚田農場 🐓", desc: "八重洲北口預約晚餐", loc: "塚田農場 八重洲北口" }
+                { time: "08:00", title: "享用飯店早餐 🍳", desc: "飯店用餐" },
+                { time: "09:30", title: "池袋水族館 🐧", desc: "已預約 / 看海獅表演", loc: "池袋太陽城水族館" },
+                { time: "11:30", title: "池袋寶可夢 Mega 🐉", desc: "限購海外版卡牌", loc: "Pokemon Center Mega Tokyo" },
+                { time: "12:30", title: "太陽城扭蛋 🛒", desc: "3樓扭蛋中心", loc: "池袋太陽城" },
+                { time: "13:30", title: "和幸炸豬排 🍛", desc: "白飯味噌湯可續", loc: "Tonkatsu Wako Sunshine City" },
+                { time: "15:00", title: "MUJI / Loft 🛍️", desc: "逛太陽城店", loc: "池袋太陽城" },
+                { time: "18:30", title: "塚田農場預約 🐓", desc: "八重洲北口店晚餐", loc: "塚田農場 八重洲北口店" }
             ]},
             { date: "2/1", weekday: "日", city: "曼谷", weather: "☀️ 27° / 34°", rain: "0%", items: [
-                { time: "09:20", title: "CI0107 ✈️", desc: "成田 ➔ 桃園 | <span class='badge badge-res'>51CHJK</span>", loc: "成田機場" },
-                { time: "13:50", title: "CI0835 ✈️", desc: "桃園 ➔ 曼谷 | <span class='badge badge-res'>11DGEF</span>", loc: "桃園機場" },
+                { time: "05:30", title: "預約機場接送 🚕", desc: "前往成田機場" },
+                { time: "09:20", title: "華航 CI0107 ✈️", desc: "成田 ➔ 桃園 | <span class='badge badge-res'>51CHJK</span>", loc: "成田機場" },
+                { time: "12:30", title: "抵達桃園 T2", desc: "轉機手續" },
+                { time: "13:50", title: "華航 CI0835 ✈️", desc: "桃園 ➔ 曼谷 | <span class='badge badge-res'>11DGEF</span>", loc: "桃園機場" },
+                { time: "16:45", title: "抵達曼谷 BKK", desc: "入境通關", loc: "蘇凡納布機場" },
                 { time: "18:30", title: "入住 MII Hotel 🏨", desc: "MII Hotel Srinagarindra", loc: "MII Hotel Srinagarindra" },
-                { time: "19:00", title: "MK 火鍋晚餐 🍲", desc: "西康廣場店", loc: "Seacon Square" }
+                { time: "19:00", title: "MK 火鍋晚餐 🍲", desc: "西康廣場店", loc: "Seacon Square" },
+                { time: "20:00", title: "Lotus’s 🛒", desc: "買伴手禮", loc: "Seacon Square" }
             ]},
             { date: "2/2", weekday: "一", city: "歸途", weather: "☀️ 28° / 35°", rain: "0%", items: [
+                { time: "09:00", title: "飯店早餐 🥣", desc: "享用最後早餐" },
                 { time: "10:00", title: "唐吉訶德採購 🐧", desc: "西康廣場店", loc: "Don Don Donki Seacon Square" },
-                { time: "14:40", title: "長榮 BR0202 ✈️", desc: "<span class='badge badge-res'>豪經艙</span> 返台", loc: "曼谷機場" },
-                { time: "19:15", title: "抵台返家 🏠", desc: "格上接送返回家中" }
+                { time: "11:30", title: "機場接送 🚗", desc: "前往曼谷機場" },
+                { time: "12:30", title: "機場貴賓室 🍷", desc: "享用午餐" },
+                { time: "14:40", title: "長榮 BR0202 ✈️", desc: "曼谷 ➔ 桃園 | <span class='badge badge-res'>豪經艙</span>", loc: "蘇凡納布機場" },
+                { time: "19:15", title: "抵台返家 🏠", desc: "抵達桃園 ➔ 格上接送返家" }
             ]}
         ];
 
         window.renderContent = function() {
             const container = document.getElementById('main-content');
             const dateKey = dates[window.currentDayIdx];
-            const currency = dateKey.includes('2/') ? 'THB' : 'JPY';
+            const isThai = dateKey.includes('2/');
+            const currency = isThai ? 'THB' : 'JPY';
             document.getElementById('top-currency').innerText = `${currency} MODE`;
 
             if (window.currentMode === 'itinerary') {
                 const data = tripData[window.currentDayIdx];
-                let html = `<div class="weather-banner"><div><p class="text-[10px] text-stone-400 font-bold uppercase">${data.city}</p><p class="text-2xl font-black">${data.weather}</p></div><div class="text-right border-l pl-4 border-stone-200"><p class="text-[10px] text-stone-400 font-bold uppercase">降雨率</p><p class="text-xl font-black">${data.rain}</p></div></div>`;
+                let html = `<div class="weather-banner"><div><p class="text-[10px] text-stone-400 font-bold uppercase">${data.city} Forecast</p><p class="text-2xl font-black">${data.weather}</p></div><div class="text-right border-l pl-4 border-stone-200"><p class="text-[10px] text-stone-400 font-bold uppercase">降雨率</p><p class="text-xl font-black">${data.rain}</p></div></div>`;
                 data.items.forEach(item => {
-                    html += `<div class="muji-card p-6"><div class="flex justify-between items-start mb-2"><span class="text-xl font-black text-stone-300 font-mono">${item.time}</span></div><h3 class="text-2xl font-black text-stone-800 mb-2 leading-tight">${item.title}</h3><p class="text-lg text-stone-500 leading-relaxed">${item.desc}</p>${item.loc ? `<a href="http://googleusercontent.com/maps.google.com/4{encodeURIComponent(item.loc)}" target="_blank" class="nav-map-btn">📍 導航</a>` : ''}</div>`;
+                    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.loc || item.title)}`;
+                    html += `<div class="muji-card p-6"><div class="flex justify-between items-start mb-2"><span class="text-xl font-black text-stone-300 font-mono">${item.time}</span></div><h3 class="text-2xl font-black text-stone-800 mb-2 leading-tight">${item.title}</h3><p class="text-lg text-stone-500 leading-relaxed">${item.desc}</p>${item.loc ? `<a href="${mapUrl}" target="_blank" class="nav-map-btn">📍 地圖導航</a>` : ''}</div>`;
                 });
                 container.innerHTML = html;
             } 
@@ -170,11 +192,11 @@
                 let listHtml = '';
                 Object.keys(dayExp).forEach(id => {
                     const item = dayExp[id]; total += item.amount;
-                    listHtml += `<div class="ledger-row"><p class="font-bold">${item.name}</p><div class="flex items-center gap-4"><span class="font-black">${item.amount}</span><button onclick="window.deleteExp('${id}')" class="text-stone-300">×</button></div></div>`;
+                    listHtml += `<div class="ledger-row"><p class="font-bold">${item.name}</p><div class="flex items-center gap-4"><span class="font-black text-xl">${item.amount}</span><button onclick="window.deleteExp('${id}')" class="text-stone-300 text-2xl">×</button></div></div>`;
                 });
-                container.innerHTML = `<div class="muji-card p-8 text-center"><p class="text-stone-400 text-xs font-bold uppercase">Today Total</p><p class="text-5xl font-black mt-2">${total}</p></div><div class="muji-card p-6">${listHtml || '<p class="text-center py-6 text-stone-300">尚未記帳</p>'}</div><div class="muji-card p-6"><input type="text" id="exp-name" class="ledger-input mb-4" placeholder="品項..."><input type="number" id="exp-amount" class="ledger-input mb-6" placeholder="金額..."><button onclick="window.addExp()" class="w-full bg-stone-800 text-white py-4 rounded-xl font-bold">同步雲端</button></div>`;
+                container.innerHTML = `<div class="muji-card p-8 text-center"><p class="text-stone-400 text-xs font-bold uppercase tracking-widest">Daily Total</p><p class="text-5xl font-black mt-2">${total}</p></div><div class="muji-card p-6">${listHtml || '<p class="text-center py-6 text-stone-300 italic">尚未有記帳紀錄</p>'}</div><div class="muji-card p-6"><input type="text" id="exp-name" class="ledger-input mb-4" placeholder="品項..."><input type="number" id="exp-amount" class="ledger-input mb-6" placeholder="金額..."><button onclick="window.addExp()" class="w-full bg-stone-800 text-white py-4 rounded-xl font-bold active:scale-95 transition-all">同步雲端</button></div>`;
             } else {
-                let pdfHtml = ticketPdfs.map(pdf => `<a href="${pdf.url}" target="_blank" class="ticket-btn"><div class="flex-1 font-bold text-stone-800">${pdf.cat} ${pdf.name}</div><div class="text-xs text-stone-400">${pdf.date}</div></a>`).join('');
+                let pdfHtml = ticketPdfs.map(pdf => `<a href="${pdf.url}" target="_blank" class="ticket-btn"><div class="flex-1 font-bold text-stone-800 text-lg">${pdf.cat} ${pdf.name}</div><div class="text-xs text-stone-400 font-bold uppercase tracking-tighter">Date: ${pdf.date}</div></a>`).join('');
                 container.innerHTML = `<h2 class="text-stone-400 font-bold uppercase text-xs mb-4 tracking-widest">Digital Vault</h2>${pdfHtml}`;
             }
         };
@@ -187,7 +209,7 @@
             document.getElementById('exp-name').value = ''; document.getElementById('exp-amount').value = '';
         };
 
-        window.deleteExp = (id) => { if(confirm('刪除紀錄？')) remove(ref(db, `expenses/${dates[window.currentDayIdx].replace(/\//g, '-')}/${id}`)); };
+        window.deleteExp = (id) => { if(confirm('刪除這筆雲端紀錄？')) remove(ref(db, `expenses/${dates[window.currentDayIdx].replace(/\//g, '-')}/${id}`)); };
 
         window.switchMode = (m) => {
             window.currentMode = m;
