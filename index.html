@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>2026 寒假 JA 親子旅行</title>
+    <title>2026寒假 JA親子旅行</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -26,7 +26,7 @@
 
     <header class="px-6 pt-14 pb-2 flex justify-between items-end">
         <div>
-            <h1 class="text-4xl font-black tracking-tight text-stone-800">2026 寒假 JA 親子旅行</h1>
+            <h1 class="text-4xl font-black tracking-tight text-stone-800">2026 JA親子旅行</h1>
             <div id="sync-status" class="text-[10px] text-green-600 font-bold mt-1 uppercase tracking-widest">● Cloud Synced</div>
         </div>
         <p id="top-currency" class="text-xs font-bold text-stone-400 font-mono tracking-tighter uppercase">日幣計算</p>
@@ -65,15 +65,18 @@
         const dates = ["1/24", "1/25", "1/26", "1/27", "1/28", "1/29", "1/30", "1/31", "2/1", "2/2"];
         
         const ticketPdfs = [
-            { cat: "🚆", name: "輕井澤 JR 去程 (1/24)", date: "1/24", url: "#" },
-            { cat: "🏨", name: "Indigo 飯店預約單", date: "1/24", url: "#" },
-            { cat: "🏨", name: "王子西館預約單", date: "1/25", url: "#" },
-            { cat: "🚆", name: "輕井澤 JR 回程 (1/27)", date: "1/27", url: "#" },
-            { cat: "🏨", name: "唐草飯店預約單", date: "1/27", url: "#" },
-            { cat: "🧱", name: "樂高探索中心門票", date: "1/29", url: "#" },
-            { cat: "🦖", name: "上野科學博物館預約", date: "1/30", url: "#" },
-            { cat: "🐟", name: "池袋水族館門票", date: "1/31", url: "#" },
-            { cat: "🏨", name: "曼谷 MII Hotel 預約", date: "2/1", url: "#" }
+            { cat: "🚆", name: "輕井澤 JR 去程 (1/24)", date: "1/24", url: "https://drive.google.com/file/d/1Sow2oYT30iCttJ2_xHUe_M3kCkIcG3ZC/preview" },
+            { cat: "🏨", name: "Indigo 飯店預約單", date: "1/24", url: "https://drive.google.com/file/d/1pingLAXnqXFqRAjCyO5dEYneBkz4euu0/preview" },
+            { cat: "🏨", name: "王子西館預約單", date: "1/25", url: "https://drive.google.com/file/d/1xd2_Cvs54ZogPjZWB_8oF9HZf2tKR0P4/preview" },
+            { cat: "🚆", name: "輕井澤 JR 回程 (1/27)", date: "1/27", url: "https://drive.google.com/file/d/1iYGh9g4O2OsmiZdZsmuK7y5R1CAH-9NJ/preview" },
+            { cat: "🚆", name: "24小時地鐵票", date: "1/27", url: "https://drive.google.com/file/d/1Wwzzh7JNsgyK3QfARdMoEafXDfvt3gYp/preview" },
+            { cat: "🏨", name: "唐草飯店預約單", date: "1/27", url: "https://drive.google.com/file/d/1zPgBegJ8Dzsvk24770fGbhz5XSR70i37/preview" },
+            { cat: "🧱", name: "teamLab門票", date: "1/29", url: "https://drive.google.com/file/d/19avX1gfW8gZKxyW357mpyHQZE1PvbllR/preview" },
+            { cat: "🧱", name: "樂高探索中心門票", date: "1/29", url: "https://drive.google.com/file/d/1p-FameBs1VKSj8atbdJu2r4ACqwUAAqQ/preview" },
+            { cat: "🧱", name: "晴空塔預約", date: "1/30", url: "https://drive.google.com/file/d/1zQpxy9o4X9TgIi-g8AL3rQStSg6VFYpF/preview" },
+            { cat: "🦖", name: "上野科學博物館預約", date: "1/30", url: "https://drive.google.com/file/d/1isA-IkiepBGwPcDvCKggK2TMesqkdOP-/preview" },
+            { cat: "🐟", name: "池袋水族館門票", date: "1/31", url: "https://drive.google.com/file/d/1kp3WUfaOmlIJd3PNhqYCCpiIJuWQImEO/preview" },
+            { cat: "🏨", name: "曼谷 MII Hotel 預約", date: "2/1", url: "https://drive.google.com/file/d/1UqZuOLTZQDEFGXjOym_VqUmF1VhYf2Hp/preview" }
         ];
 
         const tripData = [
@@ -130,7 +133,7 @@
                 { time: "09:00", title: "teamLab Planets ✨", desc: "已預約 (需脫鞋襪)", loc: "teamLab Planets TOKYO" },
                 { time: "12:30", title: "台場 Bills 午餐 🥞", desc: "已預約 / 推薦鬆餅", loc: "Bills Odaiba" },
                 { time: "14:00", title: "樂高探索中心 🧱", desc: "已預約參觀", loc: "LEGOLAND Discovery Center Tokyo" },
-                { time: "18:00", title: "與瑪姬姐餐敘 🍷", desc: "聚餐交流" }
+                { time: "18:00", title: "與Andrew & Maggie餐敘 🍷", desc: "聚餐交流" }
             ]},
             { date: "1/30", weekday: "五", city: "東京", weather: "☀️ 4° / 12°", rain: "0%", items: [
                 { time: "08:00", title: "享用飯店早餐 🥯", desc: "晨餐時光" },
