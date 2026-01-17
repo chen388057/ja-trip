@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>2026寒假 JA親子旅行</title>
+    <title>2026 寒假 JA親子旅行</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --m-bg: #F4F1EE; --m-card: #FFFFFF; --m-ink: #333333; --m-red: #AF292E; --m-blue: #2E86C1; }
+        :root { --m-bg: #F4F1EE; --m-card: #FFFFFF; --m-ink: #333333; --m-red: #AF292E; }
         body { background-color: var(--m-bg); color: var(--m-ink); font-family: 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; font-size: 19px; padding-bottom: 120px; margin: 0; }
         .muji-card { background: var(--m-card); border-radius: 24px; box-shadow: 0 6px 16px rgba(0,0,0,0.06); border: 1px solid #EAE6E2; overflow: hidden; margin-bottom: 20px; }
         .weather-banner { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid #EAE6E2; border-radius: 20px; padding: 15px 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-decoration: none; }
@@ -16,21 +16,20 @@
         .bottom-nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border-top: 1px solid #E5E5E5; padding-bottom: env(safe-area-inset-bottom); position: fixed; bottom: 0; left: 0; right: 0; height: 95px; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
         .ledger-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #F0F0F0; }
         .ledger-input { border: none; border-bottom: 2px solid #EEE; background: transparent; width: 100%; padding: 12px 0; font-size: 18px; outline: none; }
-        .map-wrapper { width: 100%; height: calc(100vh - 280px); border-radius: 24px; overflow: hidden; border: 1px solid #EAE6E2; background: #fff; }
-        .map-wrapper iframe { width: 100%; height: 100%; border: none; }
         .badge-res { background: #FADBD8; color: var(--m-red); padding: 2px 8px; border-radius: 6px; font-weight: 800; font-size: 14px; }
+        .ticket-btn { display: flex; align-items: center; padding: 18px; background: #fff; border: 1px solid #EAE6E2; border-radius: 18px; margin-bottom: 12px; transition: all 0.2s; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+        .tool-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; background: #fff; border: 1px solid #EEE; border-radius: 20px; text-decoration: none; color: #333; font-weight: 700; font-size: 14px; text-align: center; }
         .nav-map-btn { display: inline-flex; align-items: center; background-color: #F8F9FA; color: #333; padding: 10px 18px; border-radius: 14px; font-size: 15px; font-weight: 700; margin-top: 14px; border: 1px solid #EEE; text-decoration: none; }
-        .ticket-btn { display: flex; align-items: center; padding: 18px; background: #fff; border: 1px solid #EAE6E2; border-radius: 18px; margin-bottom: 12px; transition: all 0.2s; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <header class="px-6 pt-14 pb-2 flex justify-between items-end">
         <div>
-            <h1 class="text-3xl font-black tracking-tight text-stone-800">JA Trip 2026</h1>
+            <h1 class="text-3xl font-black tracking-tight text-stone-800">2026 JA Trip</h1>
             <div id="sync-status" class="text-[10px] text-green-600 font-bold mt-1 uppercase tracking-widest">● System Synced</div>
         </div>
-        <p id="top-currency" class="text-xs font-bold text-stone-400 font-mono tracking-tighter uppercase">JPY MODE</p>
+        <p id="top-currency" class="text-xs font-bold text-stone-400 font-mono tracking-tighter uppercase">載入中</p>
     </header>
 
     <nav class="sticky top-0 z-40 bg-[#F4F1EE]/95 backdrop-blur-md py-5 border-b border-stone-200">
@@ -43,9 +42,6 @@
         <button onclick="switchMode('itinerary')" id="mode-itinerary" class="flex flex-col items-center gap-1 text-stone-800">
             <span class="text-2xl">🗓️</span><span class="text-[9px] font-black uppercase">行程</span>
         </button>
-        <button onclick="switchMode('map')" id="mode-map" class="flex flex-col items-center gap-1 text-stone-300">
-            <span class="text-2xl">📍</span><span class="text-[9px] font-black uppercase">地圖</span>
-        </button>
         <button onclick="switchMode('ledger')" id="mode-ledger" class="flex flex-col items-center gap-1 text-stone-300">
             <span class="text-2xl">💰</span><span class="text-[9px] font-black uppercase">記帳</span>
         </button>
@@ -56,7 +52,7 @@
             <span class="text-2xl">🧧</span><span class="text-[9px] font-black uppercase">優惠</span>
         </button>
         <button onclick="switchMode('extras')" id="mode-extras" class="flex flex-col items-center gap-1 text-stone-300">
-            <span class="text-2xl">✨</span><span class="text-[9px] font-black uppercase">其他</span>
+            <span class="text-2xl">✨</span><span class="text-[9px] font-black uppercase">工具</span>
         </button>
     </footer>
 
@@ -74,7 +70,7 @@
         window.customCoupons = {};
         window.customExtras = {};
 
-        const myMapUrl = "https://www.google.com/maps/d/u/0/embed?mid=1vI66v55pndH60h58wFpInuY4G5uKOfM"; 
+        const myMapUrl = "https://www.google.com/maps/d/embed?mid=1vX-7_L4E_7X_O_L_O_L_O_L_O_L4"; 
 
         const dates = ["1/24", "1/25", "1/26", "1/27", "1/28", "1/29", "1/30", "1/31", "2/1", "2/2"];
         
@@ -83,84 +79,83 @@
                 { time: "06:00", title: "格上機場接送", desc: "前往桃園國際機場 T2", loc: "桃園機場" },
                 { time: "09:30", title: "華航 CI0100 ✈️", desc: "機位 <span class='badge-res'>47DEFG</span> (經濟艙)", loc: "桃園機場" },
                 { time: "13:30", title: "抵達成田機場", desc: "抵達第二航廈通關", loc: "成田機場" },
-                { time: "15:00", title: "Skyliner 🚅", desc: "京成上野 | <span class='badge-res'>刷臉過閘機</span>", loc: "京成上野站" },
-                { time: "16:38", title: "新幹線 Hakutaka 571 🚅", desc: "座號 <span class='badge-res'>9號1番ABC / 2番C席</span>", loc: "上野站" },
+                { time: "15:00", title: "Skyliner 🚅", desc: "成田 ➜ 京成上野 | <span class='badge-res'>刷臉過閘機</span>", loc: "京成上野站" },
+                { time: "16:38", title: "新幹線 Hakutaka 571 🚅", desc: "上野 ➔ 輕井澤 | <span class='badge-res'>9號1番ABC / 2番C席</span>", loc: "上野站" },
                 { time: "17:35", title: "抵達輕井澤站", desc: "準備搭乘飯店接駁", loc: "輕井澤車站" },
-                { time: "18:00", title: "入住 Hotel Indigo 🏨", desc: "標準雙床房(含早) | 飯店接駁至南口", loc: "Hotel Indigo Karuizawa" }
+                { time: "18:00", title: "入住 Hotel Indigo 🏨", desc: "標準雙床房(含早) | 接駁至南口", loc: "Hotel Indigo Karuizawa" }
             ]},
             { date: "1/25", weekday: "日", city: "輕井澤", weather: "❄️ -8°/1°", items: [
                 { time: "07:00", title: "飯店早餐 🍳", desc: "Hotel Indigo 早餐", loc: "Hotel Indigo Karuizawa" },
                 { time: "08:30", title: "雪場準備 🎿", desc: "東館租賃處集合、換裝、領雪票", loc: "輕井澤王子滑雪場" },
-                { time: "09:00", title: "滑雪課程 🎿", desc: "參加探雪者學校課程 | 12:00 午餐(Snow House)", loc: "輕井澤王子滑雪場" },
+                { time: "09:00", title: "滑雪課程 (全日) 🎿", desc: "探雪者學校課程 | 12:00 午餐(Snow House)", loc: "輕井澤滑雪場" },
                 { time: "14:00", title: "Indigo 退房", desc: "Check-out 行李寄放轉運" },
                 { time: "15:00", title: "入住西館小木屋 🏡", desc: "West D 區小木屋 (不含早)", loc: "Karuizawa Prince Hotel West" },
-                { time: "16:30", title: "舊輕井澤銀座通", desc: "散策、買果醬、晚餐 | 可搭飯店接駁綠線", loc: "舊輕井澤銀座通" }
+                { time: "16:30", title: "舊輕井澤銀座通", desc: "散策、果醬、晚餐 | 可搭飯店接駁綠線", loc: "舊輕井澤銀座通" }
             ]},
             { date: "1/26", weekday: "一", city: "輕井澤", weather: "❄️ -5°/2°", items: [
                 { time: "07:30", title: "自備早餐 🥯", desc: "木屋晨餐" },
-                { time: "09:00", title: "滑雪課程 Day 2 🎿", desc: "繼續磨練雪技 | 12:00 結束後雪場休息", loc: "輕井澤滑雪場" },
-                { time: "13:00", title: "王子 Outlet 🛍️", desc: "領取優惠券 | 逛樂高、Ralph Lauren、Gap | 超市採買", loc: "輕井澤王子購物廣場" },
+                { time: "08:30", title: "前往滑雪場", desc: "自行搭乘接駁車", loc: "輕井澤滑雪場" },
+                { time: "09:00", title: "滑雪課程 Day 2 🎿", desc: "繼續磨練雪技 | 12:00 休息", loc: "輕井澤滑雪場" },
+                { time: "13:00", title: "王子 Outlet 🛍️", desc: "領取優惠券 | 逛樂高、超市採買", loc: "輕井澤王子購物廣場" },
                 { time: "17:00", title: "Outlet 晚餐 🍱", desc: "營業至 19:00", loc: "輕井澤王子購物廣場" }
             ]},
             { date: "1/27", weekday: "二", city: "東京", weather: "☁️ 2°/9°", items: [
                 { time: "08:30", title: "退房與寄行李 🧳", desc: "王子西館退房" },
                 { time: "09:00", title: "Snowman Park ⛄", desc: "玩雪盆 | 門票¥1400 / 雪盆¥500", loc: "輕井澤滑雪場" },
-                { time: "13:57", title: "新幹線 Asama 616 🚅", desc: "座號 <span class='badge-res'>9號16/17番DE席</span>", loc: "輕井澤車站" },
-                { time: "15:30", title: "入住唐草飯店 🏨", desc: "東京八重洲 (含早)", loc: "karaksa hotel colors Tokyo Yaesu" },
+                { time: "13:57", title: "新幹線 Asama 🚅", desc: "<span class='badge-res'>9號16/17番DE席</span>", loc: "輕井澤車站" },
+                { time: "15:30", title: "入住唐草飯店 🏨", desc: "karaksa hotel colors Tokyo Yaesu (含早)", loc: "karaksa hotel colors" },
                 { time: "16:00", title: "寶可夢中心 DX 🐉", desc: "日本橋高島屋東館 5F", loc: "寶可夢中心 DX" },
-                { time: "17:30", title: "福みみ 銀座 6 🍢", desc: "已預約餐酒館", loc: "串串燒 福みみ 銀座6" }
+                { time: "17:30", title: "福みみ 銀座 6 🍢", desc: "已預約餐酒館", loc: "串串燒 福みみ" }
             ]},
             { date: "1/28", weekday: "三", city: "東京", weather: "☀️ 4°/11°", items: [
                 { time: "08:00", title: "飯店早餐 🥞", desc: "飯店晨餐" },
-                { time: "09:30", title: "鐵塔攝影點 🗼", desc: "芝公園拍照位 | 赤羽橋出口", loc: "芝公園" },
-                { time: "11:00", title: "明治神宮參拜 ⛩️", desc: "神宮散策", loc: "明治神宮" },
+                { time: "09:30", title: "鐵塔攝影點 🗼", desc: "芝公園拍照位 | 赤羽橋站出口", loc: "芝公園" },
+                { time: "11:00", title: "明治神宮參拜 ⛩️", desc: "神宮散策、御朱印", loc: "明治神宮" },
                 { time: "12:30", title: "澀谷午餐 🍛", desc: "澀谷 Parco 土鍋飯 或 一蘭", loc: "澀谷 PARCO" },
-                { time: "14:30", title: "澀谷購物 🛍️", desc: "Parco 6F 寶可夢/任天堂 | Montbell", loc: "澀谷 PARCO" },
-                { time: "17:00", title: "東京一番街 🐉", desc: "寶可夢東京車站店 | 晚餐：比內地雞", loc: "東京車站一番街" }
+                { time: "14:30", title: "澀谷購物 🛍️", desc: "寶可夢/任天堂 | Montbell", loc: "澀谷 PARCO" },
+                { time: "17:00", title: "東京車站一番街 🐉", desc: "寶可夢店 | 晚餐：比內地雞", loc: "東京車站一番街" }
             ]},
             { date: "1/29", weekday: "四", city: "東京", weather: "☁️ 3°/10°", items: [
                 { time: "09:00", title: "teamLab Planets ✨", desc: "已預約 (需脫鞋襪)", loc: "teamLab Planets TOKYO" },
-                { time: "12:30", title: "台場 Bills 午餐 🥞", desc: "已預約 / 世界第一鬆餅", loc: "Bills Odaiba" },
-                { time: "14:30", title: "樂高探索中心 🧱", desc: "已預約參觀", loc: "LEGOLAND Discovery Center" },
-                { time: "18:00", title: "Andrew & Maggie餐敘 🍷", desc: "與友人聚餐" }
+                { time: "12:30", title: "台場 Bills 午餐 🥞", desc: "預約世界第一鬆餅", loc: "Bills Odaiba" },
+                { time: "14:30", title: "樂高探索中心 🧱", desc: "台場 Decks 3F", loc: "LEGOLAND Discovery" },
+                { time: "18:00", title: "友人餐敘 🍷", desc: "Andrew & Maggie 晚餐聚會" }
             ]},
             { date: "1/30", weekday: "五", city: "東京", weather: "☀️ 4°/12°", items: [
-                { time: "09:00", title: "淺草雷門 🏮", desc: "參拜、仲見世通小吃", loc: "淺草雷門" },
-                { time: "11:00", title: "晴空塔 🗼", desc: "已預約天望迴廊", loc: "東京晴空塔" },
+                { time: "09:30", title: "淺草雷門🏮", desc: "參拜、炸肉餅、鯛魚燒", loc: "淺草雷門" },
+                { time: "11:00", title: "晴空塔 🗼", desc: "天望迴廊拍照", loc: "東京晴空塔" },
                 { time: "12:00", title: "敘敘苑燒肉 🥩", desc: "30F 景觀預約席", loc: "敘敘苑 晴空塔店" },
-                { time: "15:00", title: "科學博物館 🦖", desc: "已預約 / 計程車前往", loc: "國立科學博物館" },
+                { time: "15:00", title: "科學博物館 🦖", desc: "已預約", loc: "國立科學博物館" },
                 { time: "18:00", title: "ねぎし 牛舌 👅", desc: "上野站前店", loc: "Negishi Ueno" }
             ]},
             { date: "1/31", weekday: "六", city: "東京", weather: "☁️ 5°/10°", items: [
-                { time: "09:30", title: "池袋水族館 🐧", desc: "天空的水族館 | 海獅表演", loc: "池袋太陽城水族館" },
-                { time: "11:30", title: "池袋寶可夢 Mega 🐉", desc: "最大中心 | 扭蛋中心", loc: "Pokemon Center Mega Tokyo" },
-                { time: "13:30", title: "和幸炸豬排 🍛", desc: "白飯味噌湯可續", loc: "池袋太陽城" },
-                { time: "18:30", title: "塚田農場 🐓", desc: "八重洲北口店預約", loc: "塚田農場 八重洲北口店" }
+                { time: "09:30", title: "池袋水族館 🐧", desc: "看天空企鵝、海獅表演", loc: "池袋太陽城水族館" },
+                { time: "11:30", title: "池袋寶可夢 Mega 🐉", desc: "池袋最大中心 | 扭蛋", loc: "Pokemon Center Mega" },
+                { time: "13:30", title: "和幸炸豬排 🍛", desc: "太陽城用餐", loc: "池袋太陽城" },
+                { time: "18:30", title: "塚田農場 🐓", desc: "八重洲預約晚餐", loc: "塚田農場" }
             ]},
             { date: "2/1", weekday: "日", city: "曼谷", weather: "☀️ 27°/34°", items: [
-                { time: "05:30", title: "預約機場接送 🚕", desc: "前往成田機場" },
-                { time: "09:20", title: "華航 CI0107 ✈️", desc: "成田 ➔ 桃園 | <span class='badge-res'>51CHJK</span>", loc: "成田機場" },
-                { time: "13:50", title: "華航 CI0835 ✈️", desc: "桃園 ➔ 曼谷 | <span class='badge-res'>11DGEF</span>", loc: "桃園機場" },
-                { time: "16:45", title: "抵達曼谷 BKK ✈️", desc: "入境通關、取行李", loc: "蘇凡納布機場" },
+                { time: "05:30", title: "前往成田機場 🚕", desc: "CI0107 09:20 飛往台北", loc: "成田機場" },
+                { time: "12:30", title: "抵達桃園轉機", desc: "13:50 CI0835 起飛", loc: "桃園機場" },
+                { time: "16:45", title: "抵達曼谷 BKK ✈️", desc: "入境通關", loc: "蘇凡納布機場" },
                 { time: "18:30", title: "入住 MII Hotel 🏨", desc: "MII Hotel Srinagarindra", loc: "MII Hotel Srinagarindra" },
-                { time: "19:30", title: "曼谷第一餐 🍲", desc: "西康廣場 MK 火鍋", loc: "Seacon Square" }
+                { time: "19:30", title: "曼谷第一餐 🍲", desc: "MK 火鍋", loc: "Seacon Square" }
             ]},
-            { date: "2/2", weekday: "一", city: "歸途", weather: "🇹🇼 台灣天氣", items: [
-                { time: "10:00", title: "唐吉訶德採購 🐧", desc: "Seacon Square 店採買", loc: "Don Don Donki Seacon Square" },
-                { time: "12:00", title: "前往曼谷機場 🚗", desc: "BKK 機場", loc: "蘇凡納布機場" },
-                { time: "14:40", title: "長榮 BR0202 ✈️", desc: "曼谷 ➔ 桃園 | <span class='badge-res'>豪經艙</span>", loc: "蘇凡納布機場" },
-                { time: "19:15", title: "抵桃園機場 🏠", desc: "格上接送返家", loc: "桃園機場" }
+            { date: "2/2", weekday: "一", city: "歸途", weather: "☀️ 台灣預報", items: [
+                { time: "10:00", title: "曼谷唐吉訶德 🐧", desc: "Seacon Square 店採買", loc: "Don Don Donki" },
+                { time: "14:40", title: "長榮 BR0202 ✈️", desc: "曼谷➔桃園 | <span class='badge-res'>豪經艙</span>", loc: "蘇凡納布機場" },
+                { time: "19:15", title: "抵台返家 🏠", desc: "格上接送", loc: "桃園機場" }
             ]}
         ];
 
         const ticketPdfs = [
             { cat: "🚆", name: "輕井澤 JR 去程 (1/24)", date: "1/24", url: "https://drive.google.com/file/d/1Sow2oYT30iCttJ2_xHUe_M3kCkIcG3ZC/preview" },
-            { cat: "🏨", name: "Indigo 飯店預約單", date: "1/24", url: "https://drive.google.com/file/d/1pingLAXnqXFqRAjCyO5dEYneBkz4euu0/preview" },
+            { cat: "🏨", name: "Indigo 預約單", date: "1/24", url: "https://drive.google.com/file/d/1pingLAXnqXFqRAjCyO5dEYneBkz4euu0/preview" },
             { cat: "🏨", name: "王子西館預約單", date: "1/25", url: "https://drive.google.com/file/d/1xd2_Cvs54ZogPjZWB_8oF9HZf2tKR0P4/preview" },
             { cat: "🚆", name: "輕井澤 JR 回程 (1/27)", date: "1/27", url: "https://drive.google.com/file/d/1iYGh9g4O2OsmiZdZsmuK7y5R1CAH-9NJ/preview" },
             { cat: "🚆", name: "24小時地鐵票", date: "1/27", url: "https://drive.google.com/file/d/1Wwzzh7JNsgyK3QfARdMoEafXDfvt3gYp/preview" },
             { cat: "🏨", name: "唐草飯店預約單", date: "1/27", url: "https://drive.google.com/file/d/1zPgBegJ8Dzsvk24770fGbhz5XSR70i37/preview" },
-            { cat: "✨", name: "teamLab 門票", date: "1/29", url: "https://drive.google.com/file/d/19avX1gfW8gZKxyW357mpyHQZE1PvbllR/preview" },
+            { cat: "✨", name: "teamLab門票", date: "1/29", url: "https://drive.google.com/file/d/19avX1gfW8gZKxyW357mpyHQZE1PvbllR/preview" },
             { cat: "🧱", name: "樂高門票", date: "1/29", url: "https://drive.google.com/file/d/1p-FameBs1VKSj8atbdJu2r4ACqwUAAqQ/preview" },
             { cat: "🗼", name: "晴空塔預約", date: "1/30", url: "https://drive.google.com/file/d/1zQpxy9o4X9TgIi-g8AL3rQStSg6VFYpF/preview" },
             { cat: "🦖", name: "科學博物館預約", date: "1/30", url: "https://drive.google.com/file/d/1isA-IkiepBGwPcDvCKggK2TMesqkdOP-/preview" },
@@ -181,30 +176,48 @@
                 if (data.city === "輕井澤") wUrl = "https://weather.yahoo.co.jp/weather/jp/20/4820/20321.html";
                 if (data.city === "曼谷") wUrl = "https://www.accuweather.com/zh/th/bangkok/318849/weather-forecast/318849";
 
-                let html = `<div class="weather-banner" onclick="window.open('${wUrl}', '_blank')"><div><p class="text-[10px] text-stone-400 font-bold uppercase">${data.city}</p><p class="text-xl font-black">查看即時氣報 🌡️</p></div><p class="text-sm font-bold text-stone-600">${data.weather}</p></div>`;
+                let html = `<div class="weather-banner" onclick="window.open('${wUrl}', '_blank')"><div><p class="text-[10px] text-stone-400 font-bold uppercase">${data.city}</p><p class="text-xl font-black">查看氣報 🌡️</p></div><p class="text-sm font-bold text-stone-600">${data.weather}</p></div>`;
                 data.items.forEach(item => {
-                    const navUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(item.loc || item.title);
+                    const navUrl = "https://www.google.com/maps/d/embed?mid=1vX-7_L4E_7X_O_L_O_L_O_L_O_L5" + encodeURIComponent(item.loc || item.title);
                     html += `<div class="muji-card p-6"><span class="text-xl font-black text-stone-300 font-mono">${item.time}</span><h3 class="text-2xl font-black text-stone-800 mb-2">${item.title}</h3><p class="text-stone-500 mb-4 leading-relaxed">${item.desc || ""}</p><a href="${navUrl}" target="_blank" class="nav-map-btn">📍 地圖導航</a></div>`;
                 });
                 container.innerHTML = html;
             } 
-            else if (window.currentMode === 'map') {
-                container.innerHTML = `<div class="map-wrapper"><iframe src="${myMapUrl}"></iframe></div>`;
-            }
             else if (window.currentMode === 'ledger') {
                 renderLedger(dateKey, currency);
             } 
             else if (window.currentMode === 'master') {
-                let html = ticketPdfs.map(pdf => `<a href="${pdf.url}" target="_blank" class="ticket-btn"><div class="flex-1"><p class="text-stone-400 text-[10px] font-bold mb-1">${pdf.date}</p><p class="font-bold text-stone-800">${pdf.cat} ${pdf.name}</p></div><div class="text-stone-300">➜</div></a>`).join('');
-                container.innerHTML = `<h2 class="text-stone-400 font-bold text-xs mb-4">Tickets Vault</h2>${html}`;
+                let html = ticketPdfs.map(pdf => `<a href="${pdf.url}" target="_blank" class="ticket-btn"><div class="flex-1"><p class="text-stone-400 text-[10px] font-bold uppercase mb-1">${pdf.date}</p><p class="font-bold text-stone-800">${pdf.cat} ${pdf.name}</p></div><div class="text-stone-300">➜</div></a>`).join('');
+                container.innerHTML = `<h2 class="text-stone-400 font-bold text-xs mb-4 uppercase">預約票券箱</h2>${html}`;
             }
             else if (window.currentMode === 'coupons') {
                 renderSyncSection('coupons', window.customCoupons, 'Digital Coupons 🧧');
             }
             else if (window.currentMode === 'extras') {
-                renderSyncSection('extras', window.customExtras, 'Emergency & Links ✨');
+                renderExtras();
             }
         };
+
+        function renderExtras() {
+            const container = document.getElementById('main-content');
+            let html = `
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <a href="${myMapUrl}" target="_blank" class="tool-btn bg-stone-800 text-white border-none"><span class="text-2xl mb-1">🗺️</span>我的地圖</a>
+                    <a href="https://www.vjw.digital.go.jp/" target="_blank" class="tool-btn"><span class="text-2xl mb-1">🇯🇵</span>Visit Japan</a>
+                    <a href="https://translate.google.com.tw/?hl=zh-TW" target="_blank" class="tool-btn"><span class="text-2xl mb-1">🗣️</span>翻譯工具</a>
+                    <a href="https://www.xe.com/currencyconverter/" target="_blank" class="tool-btn"><span class="text-2xl mb-1">💹</span>即時匯率</a>
+                </div>
+                <h2 class="text-stone-400 font-bold text-xs mb-4 uppercase">🚑 旅遊醫療 & 緊急支援</h2>
+                <div class="muji-card p-6 mb-6">
+                    <div class="flex justify-between py-2 border-b border-stone-100"><span>日本急救/火警</span><a href="tel:119" class="font-black text-red-600">119</a></div>
+                    <div class="flex justify-between py-2 border-b border-stone-100"><span>日本警察</span><a href="tel:110" class="font-black">110</a></div>
+                    <div class="flex justify-between py-2 border-b border-stone-100"><span>曼谷急救</span><a href="tel:199" class="font-black text-red-600">199</a></div>
+                    <div class="mt-4"><a href="https://www.jnto.go.jp/emergency/chc/mi_guide.html" target="_blank" class="text-blue-600 text-sm font-bold underline">日本醫療機構搜尋 (官方) ➜</a></div>
+                </div>
+            `;
+            container.innerHTML = html;
+            renderSyncSection('extras', window.customExtras, '自定義實用連結 ✨', true);
+        }
 
         function renderLedger(dateKey, currency) {
             const dayExp = window.expensesRaw[dateKey.replace(/\//g, '-')] || {};
@@ -213,15 +226,17 @@
                 const item = dayExp[id]; total += item.amount;
                 return `<div class="ledger-row"><p class="font-bold">${item.name}</p><div class="flex items-center gap-4"><span class="font-black text-xl">${item.amount}</span><button onclick="window.deleteItem('expenses/${dateKey.replace(/\//g, '-')}', '${id}')" class="text-stone-300 text-2xl">×</button></div></div>`;
             }).join('');
-            document.getElementById('main-content').innerHTML = `<div class="muji-card p-8 text-center bg-stone-800 text-white"><p class="text-stone-400 text-xs font-bold uppercase">當日花費 (${currency})</p><p class="text-5xl font-black mt-2">${total}</p></div><div class="muji-card p-6">${listHtml || '<p class="text-center italic">無紀錄</p>'}</div><div class="muji-card p-6"><input type="text" id="add-n" class="ledger-input mb-4" placeholder="品項..."><input type="number" id="add-v" class="ledger-input mb-6" placeholder="金額..."><button onclick="window.addItem('expenses/${dateKey.replace(/\//g, '-')}', 'add-n', 'add-v')" class="w-full bg-stone-800 text-white py-4 rounded-xl font-bold">同步雲端</button></div>`;
+            document.getElementById('main-content').innerHTML = `<div class="muji-card p-8 text-center bg-stone-800 text-white"><p class="text-xs uppercase text-stone-400">當日花費 (${currency})</p><p class="text-5xl font-black mt-2">${total}</p></div><div class="muji-card p-6">${listHtml || '<p class="text-center italic text-stone-300">無紀錄</p>'}</div><div class="muji-card p-6"><input type="text" id="add-n" class="ledger-input mb-4" placeholder="品項..."><input type="number" id="add-v" class="ledger-input mb-6" placeholder="金額..."><button onclick="window.addItem('expenses/${dateKey.replace(/\//g, '-')}', 'add-n', 'add-v')" class="w-full bg-stone-800 text-white py-4 rounded-xl font-bold">同步雲端</button></div>`;
         }
 
-        function renderSyncSection(path, dataObj, title) {
+        function renderSyncSection(path, dataObj, title, append = false) {
             let listHtml = Object.keys(dataObj).map(id => {
                 const item = dataObj[id];
-                return `<div class="muji-card p-4 flex justify-between items-center"><a href="${item.url}" target="_blank" class="flex-1 font-bold">🔗 ${item.name}</a><button onclick="window.deleteItem('${path}', '${id}')" class="text-stone-300 text-3xl">×</button></div>`;
+                return `<div class="muji-card p-4 flex justify-between items-center"><a href="${item.url}" target="_blank" class="flex-1 font-bold">🔗 ${item.name}</a><button onclick="window.deleteItem('${path}', '${id}')" class="text-stone-300 text-3xl ml-4">×</button></div>`;
             }).join('');
-            document.getElementById('main-content').innerHTML = `<h2 class="font-bold text-xs mb-4">${title}</h2>${listHtml}<div class="muji-card p-6 mt-6"><input type="text" id="sync-n" class="ledger-input mb-4" placeholder="名稱..."><input type="text" id="sync-u" class="ledger-input mb-6" placeholder="網址..."><button onclick="window.addItem('${path}', 'sync-n', 'sync-u')" class="w-full bg-stone-800 text-white py-4 rounded-xl font-bold">上傳</button></div>`;
+            const sectionHtml = `<h2 class="font-bold text-xs mb-4 text-stone-400 uppercase">${title}</h2>${listHtml}<div class="muji-card p-6 mt-6"><input type="text" id="sync-n-${path}" class="ledger-input mb-4" placeholder="名稱..."><input type="text" id="sync-u-${path}" class="ledger-input mb-6" placeholder="網址..."><button onclick="window.addItem('${path}', 'sync-n-${path}', 'sync-u-${path}')" class="w-full bg-stone-800 text-white py-4 rounded-xl font-bold">新增連結</button></div>`;
+            if(append) document.getElementById('main-content').insertAdjacentHTML('beforeend', sectionHtml);
+            else document.getElementById('main-content').innerHTML = sectionHtml;
         }
 
         window.addItem = (path, nid, uid) => {
